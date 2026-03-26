@@ -1,0 +1,3 @@
+# requirements-gpu.txt (GPU server only)
+-r requirements.txt
+tensorflow[and-cuda]
