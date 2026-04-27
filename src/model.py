@@ -1,7 +1,9 @@
-from keras import layers, models
+from keras import Input, layers, models
 
 def build_cnn(input_shape, num_classes):
     model = models.Sequential([
+        Input(shape=input_shape),
+
         # augmentation (only active during training)
         layers.RandomFlip("horizontal"),
         layers.RandomRotation(0.1),
@@ -10,7 +12,7 @@ def build_cnn(input_shape, num_classes):
         layers.RandomContrast(0.2),
 
         # block 1
-        layers.Conv2D(32, (3, 3), activation="relu", padding="same", input_shape=input_shape),
+        layers.Conv2D(32, (3, 3), activation="relu", padding="same"),
         layers.BatchNormalization(),
         layers.MaxPooling2D(2, 2),
 
