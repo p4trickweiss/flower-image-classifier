@@ -4,12 +4,12 @@ from PIL import Image
 from sklearn.model_selection import train_test_split
 import os
 
-IMG_SIZE = (128, 128)
-
 # path is relative to the project root, one level up from src/
 DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "raw")
 
-def load_data():
+def load_data(img_size=128):
+    img_size = (img_size, img_size)
+
     dataset, info = tfds.load(
         "tf_flowers",
         as_supervised=True,
@@ -28,7 +28,7 @@ def load_data():
 
     images, labels = [], []
     for img, label in full_dataset:
-        img = Image.fromarray(img.numpy()).resize(IMG_SIZE)
+        img = Image.fromarray(img.numpy()).resize(img_size)
         img = np.array(img, dtype=np.float32) / 255.0
         images.append(img)
         labels.append(label.numpy())

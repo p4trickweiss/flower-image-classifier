@@ -13,7 +13,8 @@ with open("configs/baseline.yaml") as f:
     cfg = yaml.safe_load(f)
 
 # load and split data
-images, labels, class_names, num_classes = load_data()
+img_size = cfg["image_size"]
+images, labels, class_names, num_classes = load_data(img_size=img_size)
 X_train, X_val, X_test, y_train, y_val, y_test = split_data(images, labels)
 
 # one-hot encode labels
@@ -22,7 +23,7 @@ y_val_cat   = to_categorical(y_val,   num_classes)
 y_test_cat  = to_categorical(y_test,  num_classes)
 
 # build model
-model = build_cnn(input_shape=(128, 128, 3), num_classes=num_classes)
+model = build_cnn(input_shape=(img_size, img_size, 3), num_classes=num_classes)
 model.compile(
     optimizer=Adam(learning_rate=cfg["learning_rate"]),
     loss="categorical_crossentropy",
