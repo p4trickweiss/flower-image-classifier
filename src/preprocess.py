@@ -10,21 +10,15 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "raw")
 def load_data(img_size=128):
     img_size = (img_size, img_size)
 
-    dataset, info = tfds.load(
+    full_dataset, info = tfds.load(
         "tf_flowers",
+        split="train",
         as_supervised=True,
         with_info=True,
         data_dir=DATA_DIR
     )
     num_classes = info.features["label"].num_classes
     class_names = info.features["label"].names
-
-    full_dataset = tfds.load(
-        "tf_flowers",
-        split="train",
-        as_supervised=True,
-        data_dir=DATA_DIR
-    )
 
     images, labels = [], []
     for img, label in full_dataset:
