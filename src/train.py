@@ -1,10 +1,11 @@
 import json
 import os
 import yaml
-import numpy as np
 from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
-from keras.optimizers import Adam
+from keras.optimizers import Adam, SGD, RMSprop
+
+OPTIMIZERS = {"adam": Adam, "sgd": SGD, "rmsprop": RMSprop}
 from preprocess import load_data, split_data
 from model import build_cnn
 
@@ -24,8 +25,9 @@ y_test_cat  = to_categorical(y_test,  num_classes)
 
 # build model
 model = build_cnn(input_shape=(img_size, img_size, 3), num_classes=num_classes)
+optimizer_cls = OPTIMIZERS[cfg["optimizer"]]
 model.compile(
-    optimizer=Adam(learning_rate=cfg["learning_rate"]),
+    optimizer=optimizer_cls(learning_rate=cfg["learning_rate"]),
     loss="categorical_crossentropy",
     metrics=["accuracy"]
 )
