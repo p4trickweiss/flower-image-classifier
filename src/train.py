@@ -19,6 +19,7 @@ X_train, X_val, X_test, y_train, y_val, y_test = split_data(images, labels)
 # one-hot encode labels
 y_train_cat = to_categorical(y_train, num_classes)
 y_val_cat   = to_categorical(y_val,   num_classes)
+y_test_cat  = to_categorical(y_test,  num_classes)
 
 # build model
 model = build_cnn(input_shape=(128, 128, 3), num_classes=num_classes)
@@ -46,6 +47,11 @@ history = model.fit(
     epochs=cfg["epochs"],
     callbacks=callbacks
 )
+
+# evaluate on held-out test set
+test_loss, test_acc = model.evaluate(X_test, y_test_cat, verbose=0)
+print(f"\nTest accuracy : {test_acc:.4f}")
+print(f"Test loss     : {test_loss:.4f}")
 
 # save history for local analysis
 with open("models/history.json", "w") as f:
