@@ -1,5 +1,4 @@
 # requirements.txt (base - works everywhere)
-tensorflow
 keras
 numpy
 pillow

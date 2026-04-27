@@ -1,6 +1,6 @@
 import numpy as np
-import tensorflow as tf
 import tensorflow_datasets as tfds
+from PIL import Image
 from sklearn.model_selection import train_test_split
 import os
 
@@ -28,9 +28,9 @@ def load_data():
 
     images, labels = [], []
     for img, label in full_dataset:
-        img = tf.image.resize(img, IMG_SIZE)
-        img = tf.cast(img, tf.float32) / 255.0
-        images.append(img.numpy())
+        img = Image.fromarray(img.numpy()).resize(IMG_SIZE)
+        img = np.array(img, dtype=np.float32) / 255.0
+        images.append(img)
         labels.append(label.numpy())
 
     return np.array(images), np.array(labels), class_names, num_classes
