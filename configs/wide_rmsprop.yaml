@@ -1,0 +1,9 @@
+epochs: 50
+batch_size: 64
+optimizer: rmsprop
+learning_rate: 0.0005
+image_size: 128
+num_blocks: 4
+filters_start: 64
+dropout_rate: 0.5
+dense_units: 512

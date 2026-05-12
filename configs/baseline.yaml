@@ -3,3 +3,7 @@ batch_size: 32
 optimizer: adam
 learning_rate: 0.001
 image_size: 128
+num_blocks: 4
+filters_start: 32
+dropout_rate: 0.5
+dense_units: 512
