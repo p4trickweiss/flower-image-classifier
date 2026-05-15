@@ -36,20 +36,28 @@ pip install -r requirements-gpu.txt
 Check which GPUs are available with `nvidia-smi`, then run training targeting a free GPU (e.g. GPU 1):
 
 ```bash
-CUDA_VISIBLE_DEVICES=1 python src/train.py
+CUDA_VISIBLE_DEVICES=1 python src/train.py configs/baseline.yaml
 ```
 
-Training saves two files to `models/`:
-- `best_model.keras` — best checkpoint by val accuracy
-- `history.json` — loss and accuracy per epoch for plotting
+A config file can be passed as an optional argument (defaults to `configs/baseline.yaml`). The available configs are:
+
+| Config | Optimizer | Notes |
+|---|---|---|
+| `configs/baseline.yaml` | Adam | default |
+| `configs/shallow_sgd.yaml` | SGD | fewer layers |
+| `configs/wide_rmsprop.yaml` | RMSprop | wider filters |
+
+Training saves two files to `models/`, named after the config:
+- `{config}_best_model.keras` — best checkpoint by val accuracy
+- `{config}_history.json` — loss and accuracy per epoch for plotting
 
 ## Downloading the Model Locally
 
 After training, copy the outputs to your local machine from the project root:
 
 ```bash
-scp <user>@aiserver:/home/<user>/flower-image-classifier/models/best_model.keras ./models/
-scp <user>@aiserver:/home/<user>/flower-image-classifier/models/history.json ./models/
+scp <user>@aiserver:/home/<user>/flower-image-classifier/models/baseline_best_model.keras ./models/
+scp <user>@aiserver:/home/<user>/flower-image-classifier/models/baseline_history.json ./models/
 ```
 
 Then open `notebooks/03_training.ipynb` to plot the learning curves.
@@ -59,8 +67,33 @@ Then open `notebooks/03_training.ipynb` to plot the learning curves.
 Run prediction on a single image:
 
 ```bash
+# with default config (baseline)
 python src/predict.py /path/to/image.jpg
+
+# with a specific config/model
+python src/predict.py /path/to/image.jpg configs/shallow_sgd.yaml
 ```
+
+## Evaluation on Custom Test Images
+
+To evaluate the model on your own labeled images, place them in class subfolders:
+
+```
+data/custom_test/
+├── daisy/
+├── dandelion/
+├── roses/
+├── sunflowers/
+└── tulips/
+```
+
+Then run:
+
+```bash
+python src/evaluate.py configs/baseline.yaml data/custom_test
+```
+
+This prints per-class precision/recall/F1 and a confusion matrix.
 
 ## Data
 
