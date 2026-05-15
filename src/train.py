@@ -8,7 +8,7 @@ from keras.optimizers import Adam, SGD, RMSprop
 
 OPTIMIZERS = {"adam": Adam, "sgd": SGD, "rmsprop": RMSprop}
 from preprocess import load_data, split_data
-from model import build_cnn
+from model import build_cnn, build_alexnet
 
 # accept optional config path: python src/train.py configs/shallow_sgd.yaml
 config_path = sys.argv[1] if len(sys.argv) > 1 else "configs/baseline.yaml"
@@ -28,14 +28,21 @@ y_val_cat   = to_categorical(y_val,   num_classes)
 y_test_cat  = to_categorical(y_test,  num_classes)
 
 # build model
-model = build_cnn(
-    input_shape=(img_size, img_size, 3),
-    num_classes=num_classes,
-    num_blocks=cfg.get("num_blocks", 4),
-    filters_start=cfg.get("filters_start", 32),
-    dropout_rate=cfg.get("dropout_rate", 0.5),
-    dense_units=cfg.get("dense_units", 512),
-)
+if cfg.get("model") == "alexnet":
+    model = build_alexnet(
+        input_shape=(img_size, img_size, 3),
+        num_classes=num_classes,
+        dropout_rate=cfg.get("dropout_rate", 0.5),
+    )
+else:
+    model = build_cnn(
+        input_shape=(img_size, img_size, 3),
+        num_classes=num_classes,
+        num_blocks=cfg.get("num_blocks", 4),
+        filters_start=cfg.get("filters_start", 32),
+        dropout_rate=cfg.get("dropout_rate", 0.5),
+        dense_units=cfg.get("dense_units", 512),
+    )
 optimizer_cls = OPTIMIZERS[cfg["optimizer"]]
 model.compile(
     optimizer=optimizer_cls(learning_rate=cfg["learning_rate"]),
