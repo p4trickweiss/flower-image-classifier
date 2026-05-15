@@ -21,7 +21,7 @@ backbone_path = f"models/{cfg['backbone']}_best_model.keras"
 
 # Build feature extractor: output of Dense(512) layer, before Dropout + softmax
 backbone  = load_model(backbone_path)
-extractor = Model(inputs=backbone.input, outputs=backbone.layers[-3].output)
+extractor = Model(inputs=backbone.inputs, outputs=backbone.layers[-3].output)
 print(f"Backbone  : {backbone_path}")
 print(f"Embedding : {extractor.output_shape[1]}-dim\n")
 
