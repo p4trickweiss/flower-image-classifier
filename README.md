@@ -53,6 +53,7 @@ A config file can be passed as an optional argument (defaults to `configs/baseli
 | `configs/baseline.yaml` | Adam | default |
 | `configs/shallow_sgd.yaml` | SGD | fewer layers |
 | `configs/wide_rmsprop.yaml` | RMSprop | wider filters |
+| `configs/alexnet.yaml` | Adam | AlexNet architecture, 224×224 input |
 
 Training saves two files to `models/`, named after the config:
 - `{config}_best_model.keras` — best checkpoint by val accuracy
@@ -200,6 +201,7 @@ Non-trainable params: 1,920 (7.50 KB)
 Test accuracy : 0.7575  
 Test loss     : 0.6159
 
+#### Test with own test-images
 | Class        | Precision | Recall | F1-Score | Support |
 |--------------|-----------|--------|----------|---------|
 | Dandelion    | 0.64      | 0.23   | 0.34     | 30      |
@@ -236,6 +238,7 @@ Non-trainable params: 704 (2.75 KB)
 Test accuracy : 0.8283
 Test loss     : 0.4361
 
+#### Test with own test-images
 | Class        | Precision | Recall | F1-Score | Support |
 |--------------|-----------|--------|----------|---------|
 | Dandelion    | 0.74      | 0.47   | 0.57     | 30      |
