@@ -3,6 +3,7 @@ data/
 
 # keras models
 models/*.keras
+models/*.pkl
 
 # Python
 __pycache__/

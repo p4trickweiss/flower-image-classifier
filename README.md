@@ -267,6 +267,16 @@ Test loss     : 0.4361
 | **Sunflowers**   | 3         | 0     | 0      | 27         | 0     |
 | **Roses**        | 1         | 0     | 1      | 0          | 28    |
 
+### cnn_svm.yaml
+backbone: baseline  
+image_size: 128  
+classifier: svm  
+svm_C: 10  
+svm_kernel: rbf
+
+Val accuracy : 0.8147
+
+
 
 ## Model Comparison
 | Model           | Params | Test Acc | Test Loss | Own Images Acc | Macro F1 |
