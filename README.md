@@ -217,3 +217,47 @@ Test loss     : 0.6159
 | **Sunflowers**   | 0         | 0     | 0      | 30         | 0     |
 | **Roses**        | 1         | 0     | 4      | 0          | 25    |
 
+### alexnet.yaml
+
+model: alexnet  
+image_size: 224  
+dropout_rate: 0.5  
+optimizer: adam  
+learning_rate: 0.0001  
+batch_size: 32  
+epochs: 50  
+
+Total params: 26,083,525 (99.50 MB)  
+Trainable params: 26,082,565 (99.50 MB)  
+Non-trainable params: 960 (3.75 KB)  
+
+Test accuracy : 0.8229  
+Test loss     : 0.5141  
+
+| Class        | Precision | Recall | F1-Score | Support |
+|--------------|-----------|--------|----------|---------|
+| Dandelion    | 0.61      | 0.47   | 0.53     | 30      |
+| Daisy        | 0.89      | 0.80   | 0.84     | 30      |
+| Tulips       | 0.80      | 0.40   | 0.53     | 30      |
+| Sunflowers   | 0.49      | 0.87   | 0.63     | 30      |
+| Roses        | 0.84      | 0.90   | 0.87     | 30      |
+| **Accuracy** |           |        | **0.69** | **150** |
+| Macro Avg    | 0.73      | 0.69   | 0.68     | 150     |
+| Weighted Avg | 0.73      | 0.69   | 0.68     | 150     |
+
+| True \ Predicted | Dandelion | Daisy | Tulips | Sunflowers | Roses |
+|------------------|-----------|-------|--------|------------|-------|
+| **Dandelion**    | 14        | 3     | 1      | 12         | 0     |
+| **Daisy**        | 2         | 24    | 0      | 3          | 1     |
+| **Tulips**       | 2         | 0     | 12     | 12         | 4     |
+| **Sunflowers**   | 4         | 0     | 0      | 26         | 0     |
+| **Roses**        | 1         | 0     | 2      | 0          | 27    |
+
+
+## Model Comparison
+| Model           | Params   | Test Acc | Test Loss | Own Images Acc | Macro F1 |
+|-----------------|----------|----------|-----------|----------------|----------|
+| baseline.yaml   | 8.78M    | 0.8420   | 0.4577    | 0.79           | 0.79     |
+| shallow_sgd.yaml| 16.80M   | 0.7575   | 0.7070    | 0.61           | 0.60     |
+| wide_rmsprop.yaml| 18.34M  | 0.7575   | 0.6159    | 0.69           | 0.67     |
+| alexnet.yaml    | 26.08M   | 0.8229   | 0.5141    | 0.69           | 0.68     |
