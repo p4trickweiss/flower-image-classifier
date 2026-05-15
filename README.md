@@ -17,7 +17,7 @@ flower-image-classifier/
 ├── notebooks/        # EDA, preprocessing, training, and evaluation notebooks
 ├── src/              # source code
 ```
-The contents of the model directory can be downloaded [here](https://drive.google.com/file/d/1kM5yJs6_m37cyRgVT4XNPnTK2QtdZyeh/view?usp=sharing)  
+The contents of the model directory can be downloaded [here](https://drive.google.com/file/d/1xapZKP61CehDycHj_J41R1B0T-c1JHUQ/view?usp=sharing)  
 The contents of the data directory can be downloaded [here](https://drive.google.com/file/d/1y4V5lbc11C4jkz8SbFk3PuVGp78Nw69e/view?usp=sharing)
 
 ## Setup
