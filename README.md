@@ -17,8 +17,8 @@ flower-image-classifier/
 ├── notebooks/        # EDA, preprocessing, training, and evaluation notebooks
 ├── src/              # source code
 ```
-The contents of the model directory can be downloaded here: TODO
-The contents of the data directory can be downloaded here: DODO
+The contents of the model directory can be downloaded [here](https://drive.google.com/file/d/1kM5yJs6_m37cyRgVT4XNPnTK2QtdZyeh/view?usp=sharing)  
+The contents of the data directory can be downloaded [here](https://drive.google.com/file/d/1y4V5lbc11C4jkz8SbFk3PuVGp78Nw69e/view?usp=sharing)
 
 ## Setup
 
@@ -54,6 +54,15 @@ A config file can be passed as an optional argument (defaults to `configs/baseli
 | `configs/shallow_sgd.yaml` | SGD | fewer layers |
 | `configs/wide_rmsprop.yaml` | RMSprop | wider filters |
 | `configs/alexnet.yaml` | Adam | AlexNet architecture, 224×224 input |
+| `configs/cnn_svm.yaml` | — | baseline CNN feature extractor + SVM head |
+
+The hybrid CNN+SVM model is trained separately using `src/train_hybrid.py`:
+
+```bash
+python src/train_hybrid.py configs/cnn_svm.yaml
+```
+
+This extracts 512-dim embeddings from the baseline CNN backbone and trains an SVM classifier on top. It saves `models/cnn_svm_classifier.pkl` (the SVM) and reuses the existing `models/baseline_best_model.keras` as the feature extractor.
 
 Training saves two files to `models/`, named after the config:
 - `{config}_best_model.keras` — best checkpoint by val accuracy

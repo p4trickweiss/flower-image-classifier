@@ -1,0 +1,5 @@
+backbone: baseline
+image_size: 128
+classifier: svm
+svm_C: 10
+svm_kernel: rbf
