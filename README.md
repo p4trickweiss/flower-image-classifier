@@ -276,6 +276,24 @@ svm_kernel: rbf
 
 Val accuracy : 0.8147
 
+| Class        | Precision | Recall | F1-Score | Support |
+|--------------|-----------|--------|----------|---------|
+| Dandelion    | 0.59      | 0.80   | 0.68     | 30      |
+| Daisy        | 1.00      | 0.83   | 0.91     | 30      |
+| Tulips       | 0.79      | 0.50   | 0.61     | 30      |
+| Sunflowers   | 0.77      | 0.80   | 0.79     | 30      |
+| Roses        | 0.82      | 0.93   | 0.88     | 30      |
+| **Accuracy** |           |        | **0.77** | **150** |
+| Macro Avg    | 0.79      | 0.77   | 0.77     | 150     |
+| Weighted Avg | 0.79      | 0.77   | 0.77     | 150     |
+
+| True \ Predicted | Dandelion | Daisy | Tulips | Sunflowers | Roses |
+|------------------|-----------|-------|--------|------------|-------|
+| **Dandelion**    | 24        | 0     | 2      | 4          | 0     |
+| **Daisy**        | 3         | 25    | 0      | 2          | 0     |
+| **Tulips**       | 8         | 0     | 15     | 1          | 6     |
+| **Sunflowers**   | 6         | 0     | 0      | 24         | 0     |
+| **Roses**        | 0         | 0     | 2      | 0          | 28    |
 
 
 ## Model Comparison
@@ -285,3 +303,4 @@ Val accuracy : 0.8147
 | shallow_sgd.yaml| 16.80M | 0.7575   | 0.7070    | 0.61           | 0.60     |
 | wide_rmsprop.yaml| 18.34M | 0.7575   | 0.6159    | 0.69           | 0.67     |
 | alexnet.yaml    | 58.30M | 0.8283   | 0.4361    | 0.69           | 0.69     |
+| cnn_svm.yaml     | 8.78M  | 0.8147   | —         | 0.77           | 0.77     |
