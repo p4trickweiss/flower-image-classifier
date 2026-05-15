@@ -43,6 +43,7 @@ else:
         dropout_rate=cfg.get("dropout_rate", 0.5),
         dense_units=cfg.get("dense_units", 512),
     )
+
 optimizer_cls = OPTIMIZERS[cfg["optimizer"]]
 model.compile(
     optimizer=optimizer_cls(learning_rate=cfg["learning_rate"]),

@@ -42,7 +42,20 @@ Outputs are saved to `models/` prefixed with the config name (e.g. `baseline_bes
 | Parameter | Value |
 |---|---|
 | Blocks | 4 (64→128→256→512 filters) |
-|Dense | 512 |
+| Dense | 512 |
 | Dropout | 0.5 |
 | Optimizer | RMSprop, lr=0.0005 |
 | Batch size | 64 |
+
+---
+
+## `alexnet.yaml`
+AlexNet-inspired architecture with Adam. Uses a larger input size (224×224) to match the original AlexNet design. Lower learning rate compared to the baseline to stabilize training on the deeper, more parameter-heavy architecture.
+
+| Parameter | Value |
+|---|---|
+| Model | AlexNet |
+| Image size | 224×224 |
+| Dropout | 0.5 |
+| Optimizer | Adam, lr=0.0001 |
+| Batch size | 32 |
