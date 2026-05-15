@@ -37,3 +37,25 @@ def split_data(images, labels):
         X_temp, y_temp, test_size=0.5, random_state=42, stratify=y_temp
     )
     return X_train, X_val, X_test, y_train, y_val, y_test
+
+def load_test_images(folder, class_names, img_size=128):
+    """Load labeled images from folder/class_name/*.jpg structure."""
+    img_size = (img_size, img_size)
+    images, labels = [], []
+    for label_idx, class_name in enumerate(class_names):
+        class_dir = os.path.join(folder, class_name)
+        if not os.path.isdir(class_dir):
+            continue
+        for fname in os.listdir(class_dir):
+            if not fname.lower().endswith((".jpg", ".jpeg", ".png")):
+                continue
+            img_path = os.path.join(class_dir, fname)
+            try:
+                img = Image.open(img_path).convert("RGB").resize(img_size)
+            except Exception as e:
+                print(f"  Skipping {img_path}: {e}")
+                continue
+            img = np.array(img, dtype=np.float32) / 255.0
+            images.append(img)
+            labels.append(label_idx)
+    return np.array(images), np.array(labels)
