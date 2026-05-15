@@ -1,8 +1,6 @@
 # Data
 data/
 
-# Saved models
-models/
 
 # Python
 __pycache__/
