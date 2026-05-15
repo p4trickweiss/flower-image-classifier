@@ -17,6 +17,8 @@ flower-image-classifier/
 ├── notebooks/        # EDA, preprocessing, training, and evaluation notebooks
 ├── src/              # source code
 ```
+The contents of the model directory can be downloaded here: TODO
+The contents of the data directory can be downloaded here: DODO
 
 ## Setup
 
