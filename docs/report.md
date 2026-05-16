@@ -217,7 +217,7 @@ Die folgende Tabelle fasst die Ergebnisse aller trainierten Modelle zusammen. Da
 | alexnet | 58,30M | 82,83%        | 69% | 0.69 |
 | cnn_svm | 8,78M* | 81,47%**      | 77% | 0.77 |
 
-*CNN-Backbone-Parameter; SVM-Klassifikator enthält ~2,9 MB zusätzlich  
+*Das Hybrid-Modell benötigt zur Inferenz immer **beide** Dateien: `baseline_best_model.keras` (Feature-Extraktion, 101 MB) + `cnn_svm_classifier.pkl` (SVM-Klassifikator, 2,9 MB). 
 **Validierungsgenauigkeit (kein separates Test-Set für den SVM-Teil)
 
 ![Modellvergleich](images/model_comparison.png)
@@ -310,11 +310,10 @@ Alle Modelle zeigen einen **Accuracy-Abfall von 5–15 Prozentpunkten** vom inte
 
 Diese Lücke deutet auf einen **Distributional Shift** hin: Die selbst gesammelten Testbilder unterscheiden sich in Perspektive, Hintergrund, Bildkomposition oder Bildqualität von den tf_flowers-Bildern. Das ist ein realistisches Problem in der Praxis – Modelle generalisieren nur so gut, wie der Trainingsdatensatz die reale Bildverteilung abdeckt.
 
-### 5.3 CNN+SVM als kompetitive Alternative
+### 5.3 CNN+SVM als Alternative
 
-Der hybride CNN+SVM-Ansatz erzielt 77% auf dem Custom Testset – nur 2 Prozentpunkte unter dem Baseline-Modell. Der entscheidende Vorteil: Der SVM-Klassifikator ist mit 2,9 MB extrem kompakt gegenüber dem 101 MB großen Keras-Modell.
-
-In Szenarien, wo Speicherplatz oder Inferenzzeit eingeschränkt sind (z.B. Embedded Systems, Mobile Apps), könnte dieser Ansatz trotz leicht geringerer Genauigkeit bevorzugt werden. Außerdem bieten SVMs durch ihre Support-Vektoren eine interpretierbarere Entscheidungsgrundlage als der Softmax-Layer eines CNNs.
+Der hybride CNN+SVM-Ansatz erzielt 77% auf dem Custom Testset – nur 2 Prozentpunkte unter dem Baseline-Modell. Der eigentliche Vorteil dieses Ansatzes liegt nicht in der Effizienz, sondern in der alternativen Klassifikationslogik.
+Außerdem bieten SVMs durch ihre Support-Vektoren eine interpretierbarere Entscheidungsgrundlage als der Softmax-Layer eines CNNs.
 
 ### 5.4 Schwierige Klassen: Tulpen und Löwenzahn
 
@@ -343,7 +342,7 @@ Die systematische Evaluation von fünf verschiedenen Modellvarianten hat dabei w
 
 - **Mehr Parameter bedeuten nicht automatisch bessere Ergebnisse** – Modellkapazität muss zur Datenmenge passen.
 - **Die Wahl des Optimizers und der Lernrate hat großen Einfluss** auf Konvergenzgeschwindigkeit und Endleistung.
-- **Ein hybrides CNN+SVM-Modell ist eine valide, ressourceneffiziente Alternative** zum klassischen Softmax-Klassifikator.
+- **Ein hybrides CNN+SVM-Modell ist eine valide Alternative** zum klassischen Softmax-Klassifikator, die trotz gleichem Ressourcenbedarf (CNN-Backbone wird weiterhin benötigt) mit dem SVM eine alternative Entscheidungslogik einbringt.
 - **Distributional Shift** ist ein reales Problem – Modelle müssen mit Daten ähnlich der Zielverteilung evaluiert werden.
 
 Der gesamte Workflow – von der Datenvorbereitung über das Training bis zur Evaluation – ist vollständig reproduzierbar durch die YAML-Konfigurationsdateien und die modulare Codebasis implementiert.
