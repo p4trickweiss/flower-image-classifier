@@ -354,16 +354,15 @@ Mögliche Verbesserungen wären gezielt mehr Bilder dieser Klassen im Training o
 Um zu verstehen, **welche Bildbereiche das CNN für seine Entscheidung nutzt**, wurde **Grad-CAM** (Gradient-weighted Class Activation Mapping) angewendet. Die Methode berechnet den Gradienten des vorhergesagten Klassenscores bezüglich der Aktivierungen der letzten Convolutional-Schicht. Diese Gradienten werden gemittelt und als Gewichte auf die Aktivierungskarten angewendet, sodass eine Heatmap entsteht, die warme Farben (rot/gelb) dort zeigt, wo das Modell besonders stark auf die vorhergesagte Klasse reagiert.
 
 Die Analyse im Notebook (`04_evaluation.ipynb`, Abschnitt 11) zeigt Grad-CAM-Visualisierungen für:
+
 - **Korrekte Vorhersagen** (je ein Beispiel pro Klasse): Das Modell fokussiert idealerweise auf die Blüte selbst und nicht auf den Hintergrund.
 - **Fehlklassifikationen** (Top-5 Verwechslungspaare): Hier ist erkennbar, welche Bildregionen das Modell zu einer falschen Entscheidung geführt haben – z.B. ob bei der Verwechslung Tulpe → Löwenzahn der Hintergrund oder eine ähnlich gelbe Farbe ausschlaggebend war.
 
-<!-- BILD: Grad-CAM korrekte Vorhersagen (eine pro Klasse) -->
-![Grad-CAM korrekte Vorhersagen](images/gradcam_correct.png)
-*Abbildung 7: Grad-CAM-Heatmaps für korrekt klassifizierte Beispiele. Warme Farben zeigen die vom Modell fokussierten Regionen.*
+![Grad-CAM korrekte Vorhersagen](images/gradcam_correct.png){width=70%}  
+*Abbildung 6: Grad-CAM-Heatmaps für korrekt klassifizierte Beispiele. Warme Farben zeigen die vom Modell fokussierten Regionen.*
 
-<!-- BILD: Grad-CAM Fehlklassifikationen -->
-![Grad-CAM Fehlklassifikationen](images/gradcam_errors.png)
-*Abbildung 8: Grad-CAM für Fehlklassifikationen. Das Modell reagiert teils auf Hintergrundmerkmale statt auf die Blüte selbst.*
+![Grad-CAM Fehlklassifikationen](images/gradcam_errors.png){width=70%}  
+*Abbildung 7: Grad-CAM für Fehlklassifikationen. Das Modell reagiert teils auf Hintergrundmerkmale statt auf die Blüte selbst.*
 
 ### 6.2 Fairness & mögliche Bias-Quellen
 
