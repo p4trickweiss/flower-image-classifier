@@ -1,3 +1,10 @@
+---
+header-includes:
+  - \usepackage{titlesec}
+  - \titleformat{\paragraph}[block]{\normalfont\normalsize\bfseries}{}{}{}
+  - \titlespacing*{\paragraph}{0pt}{1.5ex plus 0.5ex minus 0.2ex}{0.5ex}
+---
+
 # Blumenerkennung mit Convolutional Neural Networks
 ## Projektdokumentation – AI-Engineering, Hochschule Campus Wien, SS 2026
 
@@ -185,12 +192,12 @@ Mit 58,30M Parametern ist AlexNet etwa 6,6-mal größer als das Baseline-Modell.
 
 #### 3.3.3 Hybrides CNN+SVM
 
-Beim hybriden Ansatz wird das trainierte Baseline-CNN als **Feature Extractor** genutzt: Die letzten Schichten werden entfernt, und das Netz gibt für jedes Bild einen 512-dimensionalen Feature-Vektor aus. Diese Vektoren werden anschließend mit einem **RBF-SVM** (C=10) klassifiziert, der zuvor mit einem StandardScaler normalisiert wird.
-
+Beim hybriden Ansatz wird das trainierte Baseline-CNN als **Feature Extractor** genutzt: Die letzten Schichten werden entfernt, und das Netz gibt für jedes Bild einen 512-dimensionalen Feature-Vektor aus. Diese Vektoren werden anschließend mit einem **RBF-SVM** (C=10) klassifiziert, der zuvor mit einem StandardScaler normalisiert wird.  
+\footnotesize
 ```
 Bild → CNN-Backbone (eingefroren) → 512-dim Feature-Vektor → StandardScaler → SVM (RBF, C=10) → Klasse
 ```
-
+\normalsize
 ### 3.4 Trainingsprotokoll
 
 Das Training wurde für alle Modelle nach folgendem Schema durchgeführt:
@@ -222,7 +229,7 @@ Die folgende Tabelle fasst die Ergebnisse aller trainierten Modelle zusammen. Da
 | alexnet | 58,30M | 82,83%        | 69% | 0.69 |
 | cnn_svm | 8,78M* | 81,47%**      | 77% | 0.77 |
 
-*Das Hybrid-Modell benötigt zur Inferenz immer **beide** Dateien: `baseline_best_model.keras` (Feature-Extraktion, 101 MB) + `cnn_svm_classifier.pkl` (SVM-Klassifikator, 2,9 MB). 
+*Das Hybrid-Modell benötigt zur Inferenz immer **beide** Dateien: `baseline_best_model.keras` (Feature-Extraktion, 101 MB) + `cnn_svm_classifier.pkl` (SVM-Klassifikator, 2,9 MB).  
 **Validierungsgenauigkeit (kein separates Test-Set für den SVM-Teil)
 
 ![Modellvergleich](images/model_comparison.png)
