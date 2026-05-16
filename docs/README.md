@@ -25,7 +25,7 @@ Speichere Screenshots aus den Notebooks in den `images/`-Ordner. Die benötigten
 ```bash
 # Installation (macOS)
 brew install pandoc
-brew install --cask basictex  # oder: brew install mactex
+brew install --cask basictex
 
 # PDF erzeugen
 cd docs

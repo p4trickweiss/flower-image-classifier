@@ -155,11 +155,15 @@ Conv2D (k Filter, 3×3, ReLU) → Batch Normalization → MaxPooling (2×2)
 
 Die Filteranzahl verdoppelt sich mit jedem Block (32 → 64 → 128 → 256), sodass das Netz mit zunehmender Tiefe mehr und komplexere Merkmale extrahiert. Vor dem ersten Block befindet sich ein Datenaugmentierungsmodul, das nur während des Trainings aktiv ist.
 
-| Konfiguration | Blöcke | Startfilter | Dense Units | Dropout | Optimizer | Lernrate | Parameter |
+\footnotesize
+
+| Konfig. | Blöcke | Filter | Dense | Dropout | Optimizer | LR | Params |
 |---|---|---|---|---|---|---|---|
-| **baseline** | 4 | 32 | 512 | 0.5 | Adam | 0.001 | 8,78M |
-| shallow_sgd | 2 | 32 | 256 | 0.3 | SGD | 0.01 | 16,80M |
-| wide_rmsprop | 4 | 64 | 512 | 0.5 | RMSprop | 0.0005 | 18,34M |
+| baseline | 4 | 32 | 512 | 0.5 | Adam | 0.001 | 8,78M |
+| shallow\_sgd | 2 | 32 | 256 | 0.3 | SGD | 0.01 | 16,80M |
+| wide\_rmsprop | 4 | 64 | 512 | 0.5 | RMSprop | 0.0005 | 18,34M |
+
+\normalsize
 
 #### 3.3.2 AlexNet-Variante
 
