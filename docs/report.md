@@ -1,7 +1,7 @@
 # Blumenerkennung mit Convolutional Neural Networks
-## Projektdokumentation – AI-Praktikum, FH Campus Wien, SS 2026
+## Projektdokumentation – AI-Engineering, Hochschule Campus Wien, SS 2026
 
-**Autor:** philhuber10  
+**Autoren:** Fabian Gerö, Philipp Huber, Gökmen Kiyan, Patrick Weiss  
 **Datum:** Mai 2026  
 **Repository:** flower-image-classifier
 
@@ -62,6 +62,7 @@ Im Projekt wurde eine an AlexNet angelehnte Architektur implementiert, die an da
 Da der verwendete Datensatz mit ca. 3.670 Bildern für ein tiefes CNN relativ klein ist, spielt Datenaugmentierung eine wichtige Rolle. Dabei werden Trainingsbilder zufällig transformiert, bevor sie dem Netz präsentiert werden. Das Netz sieht so in jeder Epoche leicht unterschiedliche Versionen eines Bildes und kann dadurch besser generalisieren.
 
 Im Projekt eingesetzte Augmentierungen:
+
 - **RandomFlip (horizontal):** Spiegelt das Bild zufällig – Blumen sehen gespiegelt gleich aus.
 - **RandomRotation (±10°):** Rotiert das Bild leicht – Blumen wachsen nicht immer gerade.
 - **RandomZoom (±10%):** Verändert den Zoom-Faktor leicht.

@@ -34,7 +34,7 @@ pandoc report.md -o report.pdf \
   -V geometry:margin=2.5cm \
   -V fontsize=11pt \
   -V lang=de \
-  --highlight-style=tango
+  --syntax-highlighting=tango
 ```
 
 ### Option 2: VS Code Extension
