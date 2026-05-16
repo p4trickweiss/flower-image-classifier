@@ -1,6 +1,10 @@
 # 🌸 flower-image-classifier
 
-End-to-end ML pipeline for classifying flower species from images — covering data preprocessing, model training, evaluation, and inference. Built for an AI Engineering university course.
+End-to-end ML pipeline for classifying flower species from images — covering data preprocessing, model training, evaluation, and inference.
+
+## Project Documentation Report
+
+The detailed project documentation report can be found [here](./docs/report.md).
 
 ## Data
 
@@ -114,7 +118,17 @@ This prints per-class precision/recall/F1 and a confusion matrix.
 
 ## Results
 
-### Baseline.yaml
+### Model Comparison
+| Model           | Params | Test Acc | Test Loss | Own Images Acc | Macro F1 |
+|-----------------|--------|----------|-----------|----------------|----------|
+| baseline.yaml   | 8.78M  | 0.8420   | 0.4577    | 0.79           | 0.79     |
+| shallow_sgd.yaml| 16.80M | 0.7575   | 0.7070    | 0.61           | 0.60     |
+| wide_rmsprop.yaml| 18.34M | 0.7575   | 0.6159    | 0.69           | 0.67     |
+| alexnet.yaml    | 58.30M | 0.8283   | 0.4361    | 0.69           | 0.69     |
+| cnn_svm.yaml     | 8.78M  | 0.8147   | —         | 0.77           | 0.77     |
+
+### Detailed Test Results
+#### Baseline.yaml
 epochs: 50  
 batch_size: 32  
 optimizer: adam  
@@ -132,7 +146,7 @@ Non-trainable params: 960 (3.75 KB)
 Test accuracy : 0.8420  
 Test loss     : 0.4577
 
-#### Test with own test-images
+#### Test with custom test-images (data/test-images)
 | Class      | Precision | Recall | F1-Score | Support |
 |------------|-----------|--------|----------|---------|
 | Dandelion  | 0.58      | 0.87   | 0.69     | 30      |
@@ -153,7 +167,7 @@ Test loss     : 0.4577
 | **Roses**        | 0         | 0     | 2      | 0          | 28    |
 
 
-### shallow_sgd.yaml
+#### shallow_sgd.yaml
 epochs: 50  
 batch_size: 32  
 optimizer: sgd  
@@ -171,7 +185,7 @@ Non-trainable params: 192 (768.00 B)
 Test accuracy : 0.7575  
 Test loss     : 0.7070
 
-#### Test with own test-images
+#### Test with custom test-images (data/test-images)
 | Class          | Precision | Recall | F1-Score | Support |
 |----------------|-----------|--------|----------|---------|
 | Dandelion      | 0.48      | 0.47   | 0.47     | 30      |
@@ -192,7 +206,7 @@ Test loss     : 0.7070
 | **Roses**        | 1         | 1     | 12     | 0          | 16    |
 
 
-### wide_rmsprop.yaml
+#### wide_rmsprop.yaml
 epochs: 50  
 batch_size: 64  
 optimizer: rmsprop  
@@ -210,7 +224,7 @@ Non-trainable params: 1,920 (7.50 KB)
 Test accuracy : 0.7575  
 Test loss     : 0.6159
 
-#### Test with own test-images
+#### Test with custom test-images (data/test-images)
 | Class        | Precision | Recall | F1-Score | Support |
 |--------------|-----------|--------|----------|---------|
 | Dandelion    | 0.64      | 0.23   | 0.34     | 30      |
@@ -230,7 +244,7 @@ Test loss     : 0.6159
 | **Sunflowers**   | 0         | 0     | 0      | 30         | 0     |
 | **Roses**        | 1         | 0     | 4      | 0          | 25    |
 
-### alexnet.yaml
+#### alexnet.yaml
 
 model: alexnet  
 image_size: 224  
@@ -247,7 +261,7 @@ Non-trainable params: 704 (2.75 KB)
 Test accuracy : 0.8283
 Test loss     : 0.4361
 
-#### Test with own test-images
+#### Test with custom test-images (data/test-images)
 | Class        | Precision | Recall | F1-Score | Support |
 |--------------|-----------|--------|----------|---------|
 | Dandelion    | 0.74      | 0.47   | 0.57     | 30      |
@@ -267,7 +281,7 @@ Test loss     : 0.4361
 | **Sunflowers**   | 3         | 0     | 0      | 27         | 0     |
 | **Roses**        | 1         | 0     | 1      | 0          | 28    |
 
-### cnn_svm.yaml
+#### cnn_svm.yaml
 backbone: baseline  
 image_size: 128  
 classifier: svm  
@@ -276,6 +290,7 @@ svm_kernel: rbf
 
 Val accuracy : 0.8147
 
+#### Test with custom test-images (data/test-images)
 | Class        | Precision | Recall | F1-Score | Support |
 |--------------|-----------|--------|----------|---------|
 | Dandelion    | 0.59      | 0.80   | 0.68     | 30      |
@@ -294,13 +309,3 @@ Val accuracy : 0.8147
 | **Tulips**       | 8         | 0     | 15     | 1          | 6     |
 | **Sunflowers**   | 6         | 0     | 0      | 24         | 0     |
 | **Roses**        | 0         | 0     | 2      | 0          | 28    |
-
-
-## Model Comparison
-| Model           | Params | Test Acc | Test Loss | Own Images Acc | Macro F1 |
-|-----------------|--------|----------|-----------|----------------|----------|
-| baseline.yaml   | 8.78M  | 0.8420   | 0.4577    | 0.79           | 0.79     |
-| shallow_sgd.yaml| 16.80M | 0.7575   | 0.7070    | 0.61           | 0.60     |
-| wide_rmsprop.yaml| 18.34M | 0.7575   | 0.6159    | 0.69           | 0.67     |
-| alexnet.yaml    | 58.30M | 0.8283   | 0.4361    | 0.69           | 0.69     |
-| cnn_svm.yaml     | 8.78M  | 0.8147   | —         | 0.77           | 0.77     |

@@ -59,3 +59,16 @@ AlexNet-inspired architecture with Adam. Uses a larger input size (224×224) to 
 | Dropout | 0.5 |
 | Optimizer | Adam, lr=0.0001 |
 | Batch size | 32 |
+
+---
+
+## `cnn_svm.yaml`
+Hybrid model: the trained baseline CNN is used as a frozen feature extractor, and an SVM replaces the softmax classifier. The CNN backbone extracts 512-dimensional embeddings which are normalized with a StandardScaler before being passed to the SVM. Trained with `src/train_hybrid.py` instead of `src/train.py`. Outputs a `cnn_svm_classifier.pkl` file — the baseline model file is also required at inference time.
+
+| Parameter | Value |
+|---|---|
+| Backbone | baseline (frozen) |
+| Image size | 128×128 |
+| Classifier | SVM |
+| SVM kernel | RBF |
+| SVM C | 10 |
