@@ -169,6 +169,15 @@ Die Filteranzahl verdoppelt sich mit jedem Block (32 → 64 → 128 → 256), so
 
 \normalsize
 
+![Architektur: baseline (4-Block CNN)](images/architectures/baseline.png){width=95%}  
+*Abbildung 3: Architekturdiagramm des Baseline-Modells.*
+
+![Architektur: shallow\_sgd (2-Block CNN)](images/architectures/shallow_sgd.png){width=100%}  
+*Abbildung 4: shallow\_sgd – 2 Convolutional Blöcke mit SGD-Optimizer.*
+
+![Architektur: wide\_rmsprop (4-Block CNN, breit)](images/architectures/wide_rmsprop.png){width=95%}  
+*Abbildung 5: wide\_rmsprop – 4 Blöcke mit doppelter Filterbreite und RMSprop.*
+
 #### 3.3.2 AlexNet-Variante
 
 Als tieferes Referenzmodell wurde eine AlexNet-inspirierte Architektur implementiert. Sie verwendet größere Eingabebilder (224×224) und tiefere Convolutional Blöcke:
@@ -187,14 +196,16 @@ Input (224×224×3)
 
 Mit 58,30M Parametern ist AlexNet etwa 6,6-mal größer als das Baseline-Modell.
 
+![Architektur: AlexNet-Variante](images/architectures/alexnet.png){width=100%}  
+*Abbildung 6: AlexNet-inspirierte Architektur mit 5 Convolutional Layern und zwei Dense-Layern.*
+
 #### 3.3.3 Hybrides CNN+SVM
 
-Beim hybriden Ansatz wird das trainierte Baseline-CNN als **Feature Extractor** genutzt: Die letzten Schichten werden entfernt, und das Netz gibt für jedes Bild einen 512-dimensionalen Feature-Vektor aus. Diese Vektoren werden anschließend mit einem **RBF-SVM** (C=10) klassifiziert, der zuvor mit einem StandardScaler normalisiert wird.  
-\footnotesize
-```
-Bild → CNN-Backbone (eingefroren) → 512-dim Feature-Vektor → StandardScaler → SVM (RBF, C=10) → Klasse
-```
-\normalsize
+Beim hybriden Ansatz wird das trainierte Baseline-CNN als **Feature Extractor** genutzt: Die letzten Schichten werden entfernt, und das Netz gibt für jedes Bild einen 512-dimensionalen Feature-Vektor aus. Diese Vektoren werden anschließend mit einem **RBF-SVM** (C=10) klassifiziert, der zuvor mit einem StandardScaler normalisiert wird.
+
+![Architektur: CNN+SVM Hybrid](images/architectures/cnn_svm.png){width=100%}  
+*Abbildung 7: Hybrid-Pipeline.*  
+
 ### 3.4 Trainingsprotokoll
 
 Das Training wurde für alle Modelle nach folgendem Schema durchgeführt:
@@ -206,7 +217,7 @@ Das Training wurde für alle Modelle nach folgendem Schema durchgeführt:
 - **ModelCheckpoint:** Bestes Modell (nach Validierungsgenauigkeit) wird automatisch gespeichert.
 
 ![Learning Curves Baseline](images/learning_curves_cnn.png)
-*Abbildung 3: Vergleich der Trainings- und Validierungsverläufe aller Modelle (Training vs. Validierung)*
+*Abbildung 8: Vergleich der Trainings- und Validierungsverläufe aller Modelle (Training vs. Validierung)*
 
 Beim Baseline-Modell verliefen Training und Validierung eng beieinander – ein Zeichen guter Regularisierung durch Dropout und Augmentierung. Die Lernrate wurde automatisch zweimal reduziert (nach Epoch 32 und 46), was in beiden Fällen zu weiterer Verbesserung führte.
 
@@ -229,7 +240,7 @@ Die folgende Tabelle fasst die Ergebnisse aller trainierten Modelle zusammen. Da
 **Validierungsgenauigkeit (kein separates Test-Set für den SVM-Teil)
 
 ![Modellvergleich](images/model_comparison.png)
-*Abbildung 4: Modellvergleich mittels Custom-Accuracy (150 selbst gesammelte Bilder)*
+*Abbildung 9: Modellvergleich mittels Custom-Accuracy (150 selbst gesammelte Bilder)*
 
 Das **Baseline-Modell** erzielt die besten Ergebnisse auf beiden Testsets – obwohl es deutlich weniger Parameter hat als `shallow_sgd`, `wide_rmsprop` oder `AlexNet`.
 
@@ -254,7 +265,7 @@ Die detaillierte Auswertung pro Klasse auf dem Custom Testset zeigt deutliche Un
 ### 4.3 Konfusionsmatrix
 
 ![Konfusionsmatrix Baseline](images/confusion_matrix_baseline.png)
-*Abbildung 5: Konfusionsmatrix des Baseline-Modells auf dem Custom Testset (150 Bilder)*
+*Abbildung 10: Konfusionsmatrix des Baseline-Modells auf dem Custom Testset (150 Bilder)*
 
 Die Konfusionsmatrix zeigt die häufigsten Verwechslungen im Detail:
 
@@ -352,10 +363,10 @@ Die Analyse im Notebook (`04_evaluation.ipynb`, Abschnitt 11) zeigt Grad-CAM-Vis
 - **Fehlklassifikationen** (Top-5 Verwechslungspaare): Hier ist erkennbar, welche Bildregionen das Modell zu einer falschen Entscheidung geführt haben – z.B. ob bei der Verwechslung Tulpe → Löwenzahn der Hintergrund oder eine ähnlich gelbe Farbe ausschlaggebend war.
 
 ![Grad-CAM korrekte Vorhersagen](images/gradcam_correct.png){width=70%}  
-*Abbildung 6: Grad-CAM-Heatmaps für korrekt klassifizierte Beispiele. Warme Farben zeigen die vom Modell fokussierten Regionen.*
+*Abbildung 11: Grad-CAM-Heatmaps für korrekt klassifizierte Beispiele. Warme Farben zeigen die vom Modell fokussierten Regionen.*
 
 ![Grad-CAM Fehlklassifikationen](images/gradcam_errors.png){width=70%}  
-*Abbildung 7: Grad-CAM für Fehlklassifikationen. Das Modell reagiert teils auf Hintergrundmerkmale statt auf die Blüte selbst.*
+*Abbildung 12: Grad-CAM für Fehlklassifikationen. Das Modell reagiert teils auf Hintergrundmerkmale statt auf die Blüte selbst.*
 
 ### 6.2 Fairness & mögliche Bias-Quellen
 
