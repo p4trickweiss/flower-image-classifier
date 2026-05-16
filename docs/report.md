@@ -12,7 +12,6 @@ header-includes:
 **Datum:** Mai 2026  
 **Repository:** flower-image-classifier
 
----
 
 ## Inhaltsverzeichnis
 
@@ -24,7 +23,6 @@ header-includes:
 6. [Erklärbarkeit, Fairness & Ethik](#6-erklärbarkeit-fairness--ethik)
 7. [Fazit](#7-fazit)
 
----
 
 ## 1. Motivation
 
@@ -40,7 +38,6 @@ Das Ziel dieses Projekts war es, einen vollständigen Machine-Learning-Workflow 
 
 Das Projekt ist im Rahmen des AI-Praktikums entstanden und legt besonderen Wert auf Reproduzierbarkeit und strukturierte Experimente.
 
----
 
 ## 2. State of the Art – verwendete Methoden
 
@@ -99,7 +96,6 @@ Im hybriden CNN+SVM-Ansatz wird die SVM nicht direkt auf Rohdaten angewendet, so
 - **F1-Score:** Harmonisches Mittel aus Precision und Recall – guter Kompromiss zwischen beiden Metriken.
 - **Konfusionsmatrix:** Zeigt übersichtlich, welche Klassen wie häufig mit welcher anderen verwechselt werden.
 
----
 
 ## 3. Methoden und Implementierung
 
@@ -214,7 +210,6 @@ Das Training wurde für alle Modelle nach folgendem Schema durchgeführt:
 
 Beim Baseline-Modell verliefen Training und Validierung eng beieinander – ein Zeichen guter Regularisierung durch Dropout und Augmentierung. Die Lernrate wurde automatisch zweimal reduziert (nach Epoch 32 und 46), was in beiden Fällen zu weiterer Verbesserung führte.
 
----
 
 ## 4. Ergebnisse
 
@@ -293,7 +288,6 @@ Confidence : 93.2%
   roses       93.2%  ████████████████████████████
 ```
 
----
 
 ## 5. Diskussion
 
@@ -345,7 +339,6 @@ Mögliche Verbesserungen wären gezielt mehr Bilder dieser Klassen im Training o
 4. **Ensemble:** Kombination mehrerer Modelle (z.B. Mehrheitsvoting zwischen Baseline, AlexNet und CNN+SVM) kann die Robustheit steigern.
 5. **Klassengewichtung:** Explizite Gewichtung unterrepräsentierter oder schwieriger Klassen in der Loss-Funktion.
 
----
 
 ## 6. Erklärbarkeit, Fairness & Ethik
 
@@ -380,7 +373,6 @@ Das vorliegende Modell klassifiziert Blumenbilder – ein Anwendungsfall mit ger
 - **Potenzielle Missbrauchsszenarien:** Auch wenn Blumenerkennung harmlos erscheint, sind die zugrundeliegenden Techniken dieselben wie bei sensibleren Anwendungen (z.B. Gesichtserkennung, medizinische Bildgebung). Ein unkritischer Transfer dieser Methoden ohne ausreichende Evaluation und Bias-Analyse in solche Bereiche wäre problematisch.
 - **Limitation kommunizieren:** Das Modell erreicht auf externen Bildern nur 79% Genauigkeit. Ein Einsatz in einem produktiven System ohne klare Kommunikation dieser Unsicherheit (z.B. durch Konfidenzanzeige) wäre irreführend.
 
----
 
 ## 7. Fazit
 
@@ -395,7 +387,6 @@ Die systematische Evaluation von fünf verschiedenen Modellvarianten hat dabei w
 
 Der gesamte Workflow – von der Datenvorbereitung über das Training bis zur Evaluation – ist vollständig reproduzierbar durch die YAML-Konfigurationsdateien und die modulare Codebasis implementiert.
 
----
 
 ## Anhang
 
