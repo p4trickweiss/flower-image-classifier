@@ -21,7 +21,8 @@ header-includes:
 3. [Methoden und Implementierung](#3-methoden-und-implementierung)
 4. [Ergebnisse](#4-ergebnisse)
 5. [Diskussion](#5-diskussion)
-6. [Fazit](#6-fazit)
+6. [Erklärbarkeit, Fairness & Ethik](#6-erklärbarkeit-fairness--ethik)
+7. [Fazit](#7-fazit)
 
 ---
 
@@ -346,7 +347,43 @@ Mögliche Verbesserungen wären gezielt mehr Bilder dieser Klassen im Training o
 
 ---
 
-## 6. Fazit
+## 6. Erklärbarkeit, Fairness & Ethik
+
+### 6.1 Grad-CAM – Erklärbarkeit durch Aktivierungskarten
+
+Um zu verstehen, **welche Bildbereiche das CNN für seine Entscheidung nutzt**, wurde **Grad-CAM** (Gradient-weighted Class Activation Mapping) angewendet. Die Methode berechnet den Gradienten des vorhergesagten Klassenscores bezüglich der Aktivierungen der letzten Convolutional-Schicht. Diese Gradienten werden gemittelt und als Gewichte auf die Aktivierungskarten angewendet, sodass eine Heatmap entsteht, die warme Farben (rot/gelb) dort zeigt, wo das Modell besonders stark auf die vorhergesagte Klasse reagiert.
+
+Die Analyse im Notebook (`04_evaluation.ipynb`, Abschnitt 11) zeigt Grad-CAM-Visualisierungen für:
+- **Korrekte Vorhersagen** (je ein Beispiel pro Klasse): Das Modell fokussiert idealerweise auf die Blüte selbst und nicht auf den Hintergrund.
+- **Fehlklassifikationen** (Top-5 Verwechslungspaare): Hier ist erkennbar, welche Bildregionen das Modell zu einer falschen Entscheidung geführt haben – z.B. ob bei der Verwechslung Tulpe → Löwenzahn der Hintergrund oder eine ähnlich gelbe Farbe ausschlaggebend war.
+
+<!-- BILD: Grad-CAM korrekte Vorhersagen (eine pro Klasse) -->
+![Grad-CAM korrekte Vorhersagen](images/gradcam_correct.png)
+*Abbildung 7: Grad-CAM-Heatmaps für korrekt klassifizierte Beispiele. Warme Farben zeigen die vom Modell fokussierten Regionen.*
+
+<!-- BILD: Grad-CAM Fehlklassifikationen -->
+![Grad-CAM Fehlklassifikationen](images/gradcam_errors.png)
+*Abbildung 8: Grad-CAM für Fehlklassifikationen. Das Modell reagiert teils auf Hintergrundmerkmale statt auf die Blüte selbst.*
+
+### 6.2 Fairness & mögliche Bias-Quellen
+
+Der verwendete Datensatz tf_flowers ist ein öffentlich verfügbarer Standard-Benchmark. Dennoch sind mehrere potenzielle Bias-Quellen zu beachten:
+
+- **Fotografie-Bias:** Die Bilder stammen überwiegend aus westlichen Ländern und zeigen Blumen unter bestimmten Lichtverhältnissen, Winkeln und Hintergründen. Blumenbilder aus anderen kulturellen Kontexten (z.B. asiatische Gartenfotos, andere Kameraperspektiven) könnten schlechter klassifiziert werden.
+- **Klassenimbalance:** Der tf_flowers-Datensatz ist nicht perfekt balanciert. Klassen mit mehr Trainingsbeispielen werden tendenziell besser gelernt. Dies spiegelt sich in den unterschiedlichen F1-Werten wider (Daisy: 0.91 vs. Tulips: 0.62).
+- **Hintergrund-Bias:** Grad-CAM zeigt, dass das Modell in manchen Fällen auf Hintergrundmerkmale reagiert (z.B. grüne Wiese, blauer Himmel) anstatt ausschließlich auf die Blüte selbst. Das bedeutet, dass ein Bild einer Rose auf einem weißen Hintergrund möglicherweise schlechter klassifiziert wird als ein Bild mit natürlichem Hintergrund.
+
+### 6.3 Ethische Reflexion
+
+Das vorliegende Modell klassifiziert Blumenbilder – ein Anwendungsfall mit geringem Schadenspotenzial. Dennoch sind allgemeine Prinzipien der verantwortungsvollen KI-Entwicklung relevant:
+
+- **Transparenz:** Durch Grad-CAM ist es möglich, die Modellentscheidungen zumindest visuell nachzuvollziehen. Ein reiner Softmax-Output gibt keine Auskunft darüber, *warum* eine Klasse vorhergesagt wurde.
+- **Potenzielle Missbrauchsszenarien:** Auch wenn Blumenerkennung harmlos erscheint, sind die zugrundeliegenden Techniken dieselben wie bei sensibleren Anwendungen (z.B. Gesichtserkennung, medizinische Bildgebung). Ein unkritischer Transfer dieser Methoden ohne ausreichende Evaluation und Bias-Analyse in solche Bereiche wäre problematisch.
+- **Limitation kommunizieren:** Das Modell erreicht auf externen Bildern nur 79% Genauigkeit. Ein Einsatz in einem produktiven System ohne klare Kommunikation dieser Unsicherheit (z.B. durch Konfidenzanzeige) wäre irreführend.
+
+---
+
+## 7. Fazit
 
 Das Projekt hat gezeigt, dass ein sorgfältig entworfenes und trainiertes CNN mit moderater Komplexität eine Blumenerkennung mit **84% Genauigkeit** (intern) bzw. **79% auf externen Bildern** erreicht – ohne den Einsatz von vortrainierten Modellen.
 
