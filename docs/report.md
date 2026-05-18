@@ -10,7 +10,7 @@ header-includes:
 
 **Autoren:** Fabian Gerö, Philipp Huber, Gökmen Kiyan, Patrick Weiss  
 **Datum:** Mai 2026  
-**Repository:** flower-image-classifier
+**Repository:** https://github.com/p4trickweiss/flower-image-classifier
 
 
 ## Inhaltsverzeichnis

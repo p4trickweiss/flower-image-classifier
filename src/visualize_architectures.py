@@ -1,11 +1,3 @@
-"""
-Generates architecture diagrams for all model configs.
-Saves PNG files to docs/images/architectures/.
-
-Usage:
-    python src/visualize_architectures.py
-"""
-
 import os
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
@@ -51,9 +43,6 @@ def save(fig, name):
 
 # ── Helper: draw a generic CNN diagram ───────────────────────────────────────
 def draw_cnn(title, conv_blocks, dense_units, dropout, optimizer, lr, filename):
-    """
-    conv_blocks: list of (n_filters, label) e.g. [(32,"32"), (64,"64"), ...]
-    """
     n = len(conv_blocks)
     # fixed blocks: input, aug, [conv+bn+pool]*n, flat, dense, drop, softmax
     total = 2 + n * 3 + 3
@@ -75,7 +64,6 @@ def draw_cnn(title, conv_blocks, dense_units, dropout, optimizer, lr, filename):
         x += width + 0.15
         return cx
 
-    # Input
     cx_prev = blk("Input\n128×128×3", C["input"], width=0.9)
 
     # Augmentation group

@@ -4,7 +4,6 @@ from PIL import Image
 from sklearn.model_selection import train_test_split
 import os
 
-# path is relative to the project root, one level up from src/
 DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "raw")
 
 def load_data(img_size=128):
@@ -39,7 +38,6 @@ def split_data(images, labels):
     return X_train, X_val, X_test, y_train, y_val, y_test
 
 def load_test_images(folder, class_names, img_size=128):
-    """Load labeled images from folder/class_name/*.jpg structure."""
     img_size = (img_size, img_size)
     images, labels = [], []
     for label_idx, class_name in enumerate(class_names):

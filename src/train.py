@@ -10,7 +10,6 @@ OPTIMIZERS = {"adam": Adam, "sgd": SGD, "rmsprop": RMSprop}
 from preprocess import load_data, split_data
 from model import build_cnn, build_alexnet
 
-# accept optional config path: python src/train.py configs/shallow_sgd.yaml
 config_path = sys.argv[1] if len(sys.argv) > 1 else "configs/baseline.yaml"
 run_name = os.path.splitext(os.path.basename(config_path))[0]
 
@@ -22,7 +21,6 @@ img_size = cfg["image_size"]
 images, labels, class_names, num_classes = load_data(img_size=img_size)
 X_train, X_val, X_test, y_train, y_val, y_test = split_data(images, labels)
 
-# one-hot encode labels
 y_train_cat = to_categorical(y_train, num_classes)
 y_val_cat   = to_categorical(y_val,   num_classes)
 y_test_cat  = to_categorical(y_test,  num_classes)
@@ -54,7 +52,6 @@ model.summary()
 
 os.makedirs("models", exist_ok=True)
 
-# callbacks — outputs named after config so runs don't overwrite each other
 callbacks = [
     ModelCheckpoint(f"models/{run_name}_best_model.keras", save_best_only=True, monitor="val_accuracy"),
     EarlyStopping(patience=10, restore_best_weights=True),
@@ -70,7 +67,6 @@ history = model.fit(
     callbacks=callbacks,
 )
 
-# evaluate on held-out test set
 test_loss, test_acc = model.evaluate(X_test, y_test_cat, verbose=0)
 print(f"\nTest accuracy : {test_acc:.4f}")
 print(f"Test loss     : {test_loss:.4f}")
